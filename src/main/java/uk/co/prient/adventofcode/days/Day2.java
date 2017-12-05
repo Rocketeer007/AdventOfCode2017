@@ -22,6 +22,7 @@ public class Day2 {
                 "5278\t113\t4427\t569\t5167\t175\t192\t3903\t155\t1051\t4121\t5140\t2328\t203\t5653\t3233\n";
 
         SpreadSheetChecksum calculator = new SpreadSheetChecksum();
-        System.out.println(String.format("Solution: %d", calculator.calculateChecksum(input)));
+        System.out.println(String.format("CheckSum: %d", calculator.calculateChecksum(input)));
+        System.out.println(String.format("DivisorSum: %d", calculator.calculateDivisorSum(input)));
     }
 }

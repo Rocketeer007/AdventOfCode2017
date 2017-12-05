@@ -48,4 +48,38 @@ public class SpreadSheetChecksumTest {
         assertThat(calculator.calculateChecksum("1\t9\n0\t5\n"), is(13));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void given_empty_string_calculateDivisorSum_throws_IllegalArgumentException() {
+        assertThat(calculator.calculateDivisorSum(""), is(0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void given_null_string_calculateDivisorSum_throws_IllegalArgumentException() {
+        assertThat(calculator.calculateDivisorSum(""), is(0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void given_single_cell_spreadsheet_calculateDivisorSum_throws_IllegalArgumentException() {
+        assertThat(calculator.calculateDivisorSum("1234"), is(0));
+    }
+
+    @Test
+    public void given_single_value_row_calculateDivisorSum_returns_1() {
+        assertThat(calculator.calculateDivisorSum("1\t1"), is(1));
+    }
+
+    @Test
+    public void given_multiple_single_value_rows_calculateDivisorSum_returns_row_count() {
+        assertThat(calculator.calculateDivisorSum("1\t1\n2\t2"), is(2));
+    }
+
+    @Test
+    public void given_two_value_row_calculateDivisorSum_returns_division() {
+        assertThat(calculator.calculateDivisorSum("2\t8"), is(4));
+    }
+
+    @Test
+    public void given_multiple_two_value_rows_calculateDivisorSum_returns_sum_of_divisions() {
+        assertThat(calculator.calculateDivisorSum("1\t9\n3\t6"), is(11));
+    }
 }
