@@ -60,4 +60,29 @@ public class InverseCaptchaTest {
     public void given_match_at_ends_inverse_captcha_is_end_digit() {
         assertThat(inverseCaptcha.calculateCaptcha("91212129"), is(9));
     }
+
+    @Test
+    public void given_offset_of_2_when_calculateCaptcha_for_paired_numbers_result_is_sum_of_matches() {
+        assertThat(inverseCaptcha.calculateCaptcha("1212", 2), is(6));
+    }
+
+    @Test
+    public void given_offset_of_2_when_calculateCaptcha_for_unpaired_numbers_result_is_sum_of_matches() {
+        assertThat(inverseCaptcha.calculateCaptcha("1221", 2), is(0));
+    }
+
+    @Test
+    public void given_offset_of_3_when_calculateCaptcha_for_sequence_numbers_result_is_sum_of_matches() {
+        assertThat(inverseCaptcha.calculateCaptcha("123425", 3), is(4));
+    }
+
+    @Test
+    public void given_offset_of_3_when_calculateCaptcha_for_paired_numbers_result_is_sum_of_matches() {
+        assertThat(inverseCaptcha.calculateCaptcha("123123", 3), is(12));
+    }
+
+    @Test
+    public void given_offset_of_4_when_calculateCaptcha_for_paired_numbers_result_is_sum_of_matches() {
+        assertThat(inverseCaptcha.calculateCaptcha("12131415", 4), is(4));
+    }
 }

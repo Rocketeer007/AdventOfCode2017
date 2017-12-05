@@ -9,13 +9,14 @@ public class Day1 {
             input = args[0];
         }
 
-        printInverseCaptcha(input);
+        printInverseCaptchaWithOffset(input, 1);
+        printInverseCaptchaWithOffset(input, input.length()/2);
     }
 
-    private static void printInverseCaptcha(String input) {
+    private static void printInverseCaptchaWithOffset(String input, int offset) {
         InverseCaptcha calculator = new InverseCaptcha();
 
         System.out.println(String.format("Inverse Captcha for: %s", input));
-        System.out.println(String.format("Solution: %d", calculator.calculateCaptcha(input)));
+        System.out.println(String.format("Solution with offset %d: %d", offset, calculator.calculateCaptcha(input, offset)));
     }
 }
