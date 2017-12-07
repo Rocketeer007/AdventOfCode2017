@@ -12,5 +12,7 @@ public class Day3 {
         SpiralDistanceCalculator calculator = new SpiralDistanceCalculator();
         System.out.println(String.format("Position: %d", input));
         System.out.println(String.format("Manhattan Distance: %d", calculator.calculateSpiralDistance(input)));
+        calculator = new SpiralDistanceCalculator();
+        System.out.println(String.format("First Larger Spiral Total: %d", calculator.calculateFirstSpiralTotalOverInput(input)));
     }
 }

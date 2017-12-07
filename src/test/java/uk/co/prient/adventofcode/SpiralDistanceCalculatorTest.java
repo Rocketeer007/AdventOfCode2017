@@ -50,5 +50,19 @@ public class SpiralDistanceCalculatorTest {
         assertThat(calculator.walkSpiralPath(21), is(new Coordinate(-2, -2)));
     }
 
+    @Test
+    public void position_of_2_spiralTotal_is_up_one_and_right_one() {
+        assertThat(calculator.calculateSpiralTotals(2), is(new Coordinate(1, 1)));
+    }
+
+    @Test
+    public void position_of_362_spiralTotal_is_down_two_and_left_two() {
+        assertThat(calculator.calculateSpiralTotals(362), is(new Coordinate(-2, -2)));
+    }
+
+    @Test
+    public void first_spiralTotal_over_362_is_362() {
+        assertThat(calculator.calculateFirstSpiralTotalOverInput(362), is(362));
+    }
 
 }

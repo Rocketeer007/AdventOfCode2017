@@ -7,15 +7,16 @@ import java.util.function.BiConsumer;
 import lombok.Data;
 
 public class SpiralDistanceCalculator {
-    private Map<Coordinate, Integer> spiralPath = new HashMap<>();
+    private final Map<Coordinate, Integer> spiralPath = new HashMap<>();
 
     public int calculateSpiralDistance(int input) {
         Coordinate position = walkSpiralPath(input, this::saveStepCount);
         return calculateManhattanDistance(position.x, position.y);
     }
 
-    public int calculateSpiralTotal(int input) {
-        return 0;
+    public int calculateFirstSpiralTotalOverInput(int input) {
+        Coordinate position = walkSpiralPath(input, this::savePositionTotal);
+        return spiralPath.get(position);
     }
 
     protected int calculateManhattanDistance(int x, int y) {
@@ -24,6 +25,21 @@ public class SpiralDistanceCalculator {
 
     private void saveStepCount(int stepCount, Coordinate position) {
         spiralPath.put(position, stepCount+1);
+    }
+
+    private void savePositionTotal(int stepCount, Coordinate position) {
+        int positionTotal = 0;
+        for (int xOffset = -1; xOffset <= 1; xOffset++) {
+            for (int yOffset = -1; yOffset <= 1; yOffset++) {
+                positionTotal += spiralPath.getOrDefault(new Coordinate(position.x + xOffset, position.y + yOffset), 0);
+            }
+        }
+        if (positionTotal == 0) positionTotal = 1;
+        spiralPath.put(position, positionTotal);
+    }
+
+    protected Coordinate calculateSpiralTotals(int limitValue) {
+        return walkSpiralPath(limitValue, this::savePositionTotal);
     }
 
     protected Coordinate walkSpiralPath(int stepCount) {
