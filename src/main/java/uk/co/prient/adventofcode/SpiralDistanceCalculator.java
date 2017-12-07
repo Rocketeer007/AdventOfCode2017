@@ -3,16 +3,16 @@ package uk.co.prient.adventofcode;
 import lombok.Data;
 
 public class SpiralDistanceCalculator {
-    public int calculateManhattanDistance(int x, int y) {
-        return Math.abs(x) + Math.abs(y);
-    }
-
     public int calculateSpiralDistance(int input) {
-        Coordinate position = calculateSpiralPosition(input);
+        Coordinate position = walkSpiralPath(input);
         return calculateManhattanDistance(position.x, position.y);
     }
 
-    public Coordinate calculateSpiralPosition(int input) {
+    protected int calculateManhattanDistance(int x, int y) {
+        return Math.abs(x) + Math.abs(y);
+    }
+
+    protected Coordinate walkSpiralPath(int stepsToTake) {
         /* I'm sure there's a mathematical solution to this... but I can't think of it! */
         /* For now, just use brute force and walk the path */
         int stepsRight = 1;
@@ -24,9 +24,9 @@ public class SpiralDistanceCalculator {
         Direction direction = Direction.RIGHT;
         int stepsTaken = 0;
 
-        while (input > 1) {
+        while (stepsToTake > 1) {
             position = direction.takeStep(position);
-            input--;
+            stepsToTake--;
             stepsTaken++;
 
             switch (direction) {

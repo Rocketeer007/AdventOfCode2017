@@ -27,27 +27,27 @@ public class SpiralDistanceCalculatorTest {
 
     @Test
     public void position_of_one_is_origin() {
-        assertThat(calculator.calculateSpiralPosition(1), is(new Coordinate(0, 0)));
+        assertThat(calculator.walkSpiralPath(1), is(new Coordinate(0, 0)));
     }
 
     @Test
     public void position_of_two_is_right_one() {
-        assertThat(calculator.calculateSpiralPosition(2), is(new Coordinate(1, 0)));
+        assertThat(calculator.walkSpiralPath(2), is(new Coordinate(1, 0)));
     }
 
     @Test
     public void position_of_three_is_right_one_and_up_one() {
-        assertThat(calculator.calculateSpiralPosition(3), is(new Coordinate(1, 1)));
+        assertThat(calculator.walkSpiralPath(3), is(new Coordinate(1, 1)));
     }
 
     @Test
     public void position_of_ten_is_right_two_and_down_one() {
-        assertThat(calculator.calculateSpiralPosition(10), is(new Coordinate(2, -1)));
+        assertThat(calculator.walkSpiralPath(10), is(new Coordinate(2, -1)));
     }
 
     @Test
     public void position_of_21_is_left_two_and_down_two() {
-        assertThat(calculator.calculateSpiralPosition(21), is(new Coordinate(-2, -2)));
+        assertThat(calculator.walkSpiralPath(21), is(new Coordinate(-2, -2)));
     }
 
 
