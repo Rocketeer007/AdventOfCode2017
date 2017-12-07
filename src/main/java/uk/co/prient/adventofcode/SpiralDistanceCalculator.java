@@ -1,18 +1,36 @@
 package uk.co.prient.adventofcode;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
 import lombok.Data;
 
 public class SpiralDistanceCalculator {
+    private Map<Coordinate, Integer> spiralPath = new HashMap<>();
+
     public int calculateSpiralDistance(int input) {
-        Coordinate position = walkSpiralPath(input);
+        Coordinate position = walkSpiralPath(input, this::saveStepCount);
         return calculateManhattanDistance(position.x, position.y);
+    }
+
+    public int calculateSpiralTotal(int input) {
+        return 0;
     }
 
     protected int calculateManhattanDistance(int x, int y) {
         return Math.abs(x) + Math.abs(y);
     }
 
-    protected Coordinate walkSpiralPath(int stepsToTake) {
+    private void saveStepCount(int stepCount, Coordinate position) {
+        spiralPath.put(position, stepCount+1);
+    }
+
+    protected Coordinate walkSpiralPath(int stepCount) {
+        return walkSpiralPath(stepCount, this::saveStepCount);
+    }
+
+    private Coordinate walkSpiralPath(int maxPositionValue, BiConsumer<Integer, Coordinate> stepAction) {
         /* I'm sure there's a mathematical solution to this... but I can't think of it! */
         /* For now, just use brute force and walk the path */
         int stepsRight = 1;
@@ -23,10 +41,15 @@ public class SpiralDistanceCalculator {
         Coordinate position = new Coordinate(0, 0);
         Direction direction = Direction.RIGHT;
         int stepsTaken = 0;
+        int totalStepsTaken = 0;
 
-        while (stepsToTake > 1) {
+        while (true) {
+            stepAction.accept(totalStepsTaken, position);
+            if (spiralPath.get(position) >= maxPositionValue)
+                break;
+            totalStepsTaken++;
+
             position = direction.takeStep(position);
-            stepsToTake--;
             stepsTaken++;
 
             switch (direction) {
