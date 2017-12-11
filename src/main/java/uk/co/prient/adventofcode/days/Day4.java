@@ -25,5 +25,13 @@ public class Day4 {
             ioe.printStackTrace();
             System.err.println("Processing file: "+inputFile.toAbsolutePath().toString());
         }
+
+        try (Stream<String> stream = Files.lines(inputFile)) {
+            System.out.println("Valid Anagram-Unique passphrases: "+stream.filter(passphraseValidator::verifyAnagramUniqueWords).count());
+        } catch (IOException ioe) {
+            System.err.println("Exception: "+ioe.getMessage());
+            ioe.printStackTrace();
+            System.err.println("Processing file: "+inputFile.toAbsolutePath().toString());
+        }
     }
 }
