@@ -19,7 +19,8 @@ public class Day5 {
 
         try (Stream<String> stream = Files.lines(inputFile)) {
             TrampolineMazeNavigator navigator = new TrampolineMazeNavigator(stream.collect(Collectors.toList()));
-            System.out.println("Steps to exit: " + navigator.stepCount());
+            System.out.println("Steps to exit - easy: " + navigator.stepCount(navigator.incrementAction));
+            System.out.println("Steps to exit - hard: " + navigator.stepCount(navigator.offsetAction));
         } catch (IOException ioe) {
             System.err.println("Exception: "+ioe.getMessage());
             ioe.printStackTrace();

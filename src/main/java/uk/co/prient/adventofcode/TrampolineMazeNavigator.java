@@ -2,6 +2,7 @@ package uk.co.prient.adventofcode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TrampolineMazeNavigator {
@@ -11,7 +12,7 @@ public class TrampolineMazeNavigator {
         this.instructions = instructions.stream().map(Integer::valueOf).collect(Collectors.toList());
     }
 
-    public int stepCount() {
+    public int stepCount(Function<Integer, Integer> stepAction) {
         List<Integer> instructionsCopy = new ArrayList<>(instructions);
 
         int steps = 0;
@@ -19,7 +20,7 @@ public class TrampolineMazeNavigator {
 
         do {
             int action = instructionsCopy.get(position);
-            instructionsCopy.set(position, action + 1);
+            instructionsCopy.set(position, stepAction.apply(action));
 
             steps++;
             position += action;
@@ -27,4 +28,8 @@ public class TrampolineMazeNavigator {
 
         return steps;
     }
+
+    public final Function<Integer, Integer> incrementAction = action -> action + 1;
+
+    public final Function<Integer, Integer> offsetAction = action -> (action >= 3 ? action - 1 : action + 1);
 }
